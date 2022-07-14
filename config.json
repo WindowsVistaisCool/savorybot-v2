@@ -1,30 +1,41 @@
 {
-    "ownerIDs": [],
-    "slashGuildID": null,
-    "doAutomaticSync": true,
+    "ownerIDs": [406629388059410434, 460943477992062976, 345317154914304012],
+    "staffMembers": [
+        460943477992062976,
+        406629388059410434,
+        345317154914304012,
+        307694113548140546
+    ],
+    "staffRoles": [
+        788911513129058304,
+        788912937481273344,
+        792875711676940321
+    ],
+    "slashGuildID": 788886124159828009,
+    "doAutomaticSync": false,
     "loadedCogs": [
+        "cogs.applications",
         "cogs.listeners",
+        "cogs.owner",
         "cogs.testing"
     ],
+    "snowflakes": {
+        "verifyRole": 788914323485491232,
+        "lockedRole": 788890991028469792,
+        "appHandlingChannel": 831579949415530527,
+        "guildMemberRole": 789590790669205536,
+        "pendingRole": 831614870256353330
+    },
     "rtInit": {},
     "prefix": "=",
     "activity": {
-        "type": "none",
-        "name": "",
+        "type": "p",
+        "name": "skyblock",
         "status": "online",
         "streamURL": ""
     },
     "debug": {
         "enabled": false
     },
-    "cogChecks": {
-        "sample": {
-            "roles": [],
-            "users": [],
-            "flags": [
-                "debug",
-                "alwaysFalse"
-            ]
-        }
-    }
+    "cogChecks": {}
 }

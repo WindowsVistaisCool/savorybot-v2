@@ -28,10 +28,12 @@ def store(file, key=None, read=False, val=None, *, pop=False):
 
 config = store('config.json', None, True)
 guildID = config['slashGuildID']
+binKey = None
 rtVars = {}
 
 # Cog utils (loading/set status)
-async def get_ready(bot) -> None:
+async def get_ready(bot, binKey) -> None:
+    binKey = binKey
     global starttime
     starttime = time.time()
     config = store('config.json', None, True)
@@ -77,7 +79,7 @@ async def __ready_status(client: Union[discord.Client, discord.ext.commands.Bot]
         elif activityData['type'].startswith('s'):
             return discord.Streaming(name=activityName, url=activityData['streamURL'])
         elif activityData['type'].startswith('p'):
-            return disclrd.Game(name=activityName)
+            return discord.Game(name=activityName)
         else:
             return None
     def stat():

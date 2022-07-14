@@ -15,7 +15,7 @@ bot = Bot(
 )
 
 @bot.event
-async def on_ready(): await get_ready(bot)
+async def on_ready(): await get_ready(bot, dotenv_values('.env')["BINKEY"])
 
 try: bot.run(dotenv_values(".env")["TOKEN"])
 except: print("\033[91mERROR: Token is not set!\033[0m")
