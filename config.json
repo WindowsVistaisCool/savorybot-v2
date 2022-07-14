@@ -1,0 +1,30 @@
+{
+    "ownerIDs": [],
+    "slashGuildID": null,
+    "doAutomaticSync": true,
+    "loadedCogs": [
+        "cogs.listeners",
+        "cogs.testing"
+    ],
+    "rtInit": {},
+    "prefix": "=",
+    "activity": {
+        "type": "none",
+        "name": "",
+        "status": "online",
+        "streamURL": ""
+    },
+    "debug": {
+        "enabled": false
+    },
+    "cogChecks": {
+        "sample": {
+            "roles": [],
+            "users": [],
+            "flags": [
+                "debug",
+                "alwaysFalse"
+            ]
+        }
+    }
+}
