@@ -4,6 +4,7 @@ from cogs.utils import debug, config
 
 # Interaction cog imports
 from cogs.applications import Applications
+from cogs.suggestions import Suggestions
 
 class Listeners(commands.Cog):
     def __init__(self, bot):
@@ -25,6 +26,8 @@ class Listeners(commands.Cog):
             modal = Applications.modals.Apply()
             modal.supply_cog(Applications)
             await interaction.response.send_modal(modal)
+        elif interaction.data["custom_id"].startswith("bot::sgst"):
+            await Suggestions.event_callback(interaction)
 
     # @commands.Cog.listener()
     async def on_message(self, message: discord.Message):

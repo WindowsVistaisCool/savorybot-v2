@@ -32,8 +32,8 @@ binKey = None
 rtVars = {}
 
 # Cog utils (loading/set status)
-async def get_ready(bot, binKey) -> None:
-    binKey = binKey
+async def get_ready(bot) -> None:
+    binKey = None
     global starttime
     starttime = time.time()
     config = store('config.json', None, True)

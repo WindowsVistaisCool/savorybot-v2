@@ -32,6 +32,13 @@ class Owner(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
+    async def nv(self, ctx):
+        await ctx.message.delete()
+        message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+        await message.edit(view=None)
+
+    @commands.command()
+    @commands.is_owner()
     async def purge(self, ctx, amount: int):
         await ctx.message.delete()
         await ctx.channel.purge(limit=int(amount))

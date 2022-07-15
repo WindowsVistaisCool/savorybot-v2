@@ -1,4 +1,4 @@
-from cogs.utils import get_config
+from cogs.utils import config
 
 class checkFuncs():
     def handleFlags(ctx, flags) -> bool:
@@ -22,11 +22,11 @@ class checkFuncs():
     def handleRoles(ctx, roles) -> bool:
         for roleID in roles:
             role = ctx.guild.get_role(roleID)
-            if role in ctx.author.roles: return True
+            if role in ctx.user.roles: return True
         return False
 
     def handleUsers(ctx, users) -> bool:
-        if ctx.author.id in users:
+        if ctx.user.id in users:
             return True
         return False
     
@@ -47,4 +47,4 @@ class checkFuncs():
 
 # Must be async because @commands.check() parses coro
 async def check(ctx, check):
-    return checkFuncs.parseCheck(ctx, check)
+    return checkFuncs.parseCheck(ctx, config['cogChecks'][check])
