@@ -156,7 +156,7 @@ class Polls(commands.Cog):
         else:
             await interaction.response.send_message(f"Unknown poll type: {type}", ephemeral=True)
     
-    # @poll.error
+    @poll.error
     async def poll_error(self, interaction: discord.Interaction, error):
         await interaction.response.send_message("You do not have permission to make a poll!", ephemeral=True)
 
