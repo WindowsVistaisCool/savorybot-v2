@@ -19,7 +19,7 @@ class Suggestions(commands.Cog):
                 await interaction.response.send_message("You cannot up/down vote again!", ephemeral=True)
                 return
             embed.set_field_at(0, name="Score", value=f"`{int(embed.fields[0].value[1:-1]) + (1 if interaction.data['custom_id'].startswith('bot::sgst::vu') else -1)}`", inline=False)
-            embed.set_field_at(1, name="Respondants", value=(embed.fields[1].value if embed.fields[1].value != 'None' else "") + f"{interaction.user.mention}", inline=False)
+            embed.set_field_at(1, name="Respondants", value=(embed.fields[1].value if embed.fields[1].value != 'None' else "") + f" {interaction.user.mention}", inline=False)
             await message.edit(embed=embed)
         elif interaction.data['custom_id'].startswith("bot::sgst::mod-"):
             if not await checks.check(interaction, "staff"):
