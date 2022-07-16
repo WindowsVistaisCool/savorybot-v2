@@ -25,7 +25,8 @@
         "appHandlingChannel": 831579949415530527,
         "guildMemberRole": 789590790669205536,
         "pendingRole": 831614870256353330,
-        "suggestionsChannel": 866363490675326996
+        "suggestionsChannel": 866363490675326996,
+        "ownerID": 406629388059410434
     },
     "rtInit": {},
     "prefix": "=",

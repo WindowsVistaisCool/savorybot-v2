@@ -143,12 +143,25 @@ class Suggestions(commands.Cog):
                 await message.edit(view=self.cog.views.Pending(message.id))
                 await interaction.response.send_message("Thank you for your suggestion, it has been sent to the suggestions channel.", ephemeral=True)
 
+        class BugReport(ui.Modal, title="Report a bug"):
+            m_report = ui.TextInput(label="Please describe the issue as much as you can", style=discord.TextStyle.paragraph, max_length=1000)
+
+            async def on_submit(self, interaction: discord.Interaction):
+                owner = await interaction.guild.fetch_member(utils.config['snowflakes']['ownerID'])
+                await owner.send(f"Bug report from {interaction.user.mention}:```{interaction.data['components'][0]['components'][0]['value']}```")
+                await interaction.response.send_message("Your bug report has been sent. Thanks for reporting it!", ephemeral=True)
+
     @app_commands.command(description="Make a suggestion")
     @app_commands.guilds(discord.Object(id=utils.guildID))
     async def suggest(self, interaction: discord.Interaction):
         modal = self.modals.Initiate()
         modal.supply_cog(self)
         await interaction.response.send_modal(modal)
+    
+    @app_commands.command(description="Report a bug")
+    @app_commands.guilds(discord.Object(id=utils.guildID))
+    async def bugreport(self, interaction: discord.Interaction):
+        await interaction.response.send_modal(self.modals.BugReport())
 
 async def setup(bot: commands.Bot) -> None:
     await bot.add_cog(Suggestions(bot))
