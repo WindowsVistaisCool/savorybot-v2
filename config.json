@@ -18,7 +18,8 @@
         "cogs.listeners",
         "cogs.owner",
         "cogs.polls",
-        "cogs.suggestions"
+        "cogs.suggestions",
+        "cogs.tictactoe"
     ],
     "snowflakes": {
         "verifyRole": 788914323485491232,

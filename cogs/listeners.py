@@ -6,6 +6,7 @@ from cogs.utils import debug, config
 from cogs.applications import Applications
 from cogs.suggestions import Suggestions
 from cogs.polls import Polls
+from cogs.tictactoe import Tictactoe
 
 class Listeners(commands.Cog):
     def __init__(self, bot):
@@ -31,6 +32,8 @@ class Listeners(commands.Cog):
             await Suggestions.event_callback(interaction)
         elif interaction.data["custom_id"].startswith("bot::poll"):
             await Polls.event_callback(interaction)
+        elif interaction.data["custom_id"].startswith("bot::tictactoe"):
+            await Tictactoe.event_callback(interaction)
 
     # @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
