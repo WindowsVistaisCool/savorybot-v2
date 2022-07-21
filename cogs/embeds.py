@@ -32,7 +32,7 @@ class presets:
         e = Embed(title="Guild Applications", color=Color.blurple())
         e.add_field(name="How to apply", value="Click the green 'Apply' button and enter your Minecraft IGN into the text field.", inline=False)
         e.add_field(name="API", value="If you do not have your APIs (skills, collections, enderchest, **and** inventory) on, your application will be instantly rejected.", inline=False)
-        e.add_field(name="Response", value="Your application will be handled by staff members. They have the choice to accept/reject you based on your skill average, networth, slayers, and more. If you get rejected, you cannot apply again. If you feel this is a mistake, you can always DM a staff member.", inline=False)
+        e.add_field(name="Response", value="Your application will be handled by staff members. They have the choice to accept/reject you based on your skill average, networth, slayers, and more. **Your application will be based off requirements listed above**. If you are rejected, you cannot apply again. If you feel this is a mistake, you can always DM a staff member.", inline=False)
         return e
     
     @staticmethod

@@ -13,7 +13,7 @@ def binMod(data: dict = None, *, binID = "62d05c065ecb581b56bc24fa") -> Union[di
     }
     readHeader = {
         'X-Master-Key': "$2b$10$xuWXT4f19qj6Gzdnqxn2fuM6XNUB3DpooTJST.YoTfgD35g1mjjQe"
-    }
+    }   
     if data is None: return requests.get(f"https://api.jsonbin.io/v3/b/{binID}/latest", json=None, headers=readHeader).json()['record']
     return requests.put(f"https://api.jsonbin.io/v3/b/{binID}", headers=header, json=data).text
 
