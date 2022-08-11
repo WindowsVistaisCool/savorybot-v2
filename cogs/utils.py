@@ -6,6 +6,7 @@ import datetime, time
 from typing import Union
 
 # JSON R/W
+# TODO: Rename variables to be more descriptive
 def store(file, key=None, read=False, val=None, *, pop=False):
     with open(file, 'r') as v:
         x = json.load(v)
@@ -40,10 +41,24 @@ async def get_ready(bot) -> None:
     for key, val in config['rtInit'].items(): rtVars[key] = val
     __show_warns(config)
     await __load_cogs(bot, config)
+
+    await updateData(bot)
+
     if config["doAutomaticSync"]: await sync_commands(bot, config) # syncs commands to guilds or globally
-    await __ready_status(bot, config['activity'])
+    await __setPresence(bot, config['activity'])
     print("Ready")
 
+# Get data from data channel
+async def updateData(bot) -> None:
+    channel = bot.get_channel(config['snowflakes']['dataChannel'])
+    rtVars['stored']['ids'] = {}
+    async for message in channel.history(limit=100):
+        if message.author.id == bot.user.id:
+            try:
+                content = message.content.split('::')
+                rtVars['stored'][content[0]] = json.loads(content[1])
+                rtVars['stored']['ids'][content[0]] = message.id
+            except: continue
 def __show_warns(current_conf) -> None:
     warns = ""
     if current_conf['debug']['enabled']:
@@ -56,19 +71,18 @@ def __show_warns(current_conf) -> None:
     if warns != "":
         print(f"\033[9{'3m' + warns}\033[0m")
 
-# Internal method to fetch cogs and call their setup() function
+# Internal function to fetch cogs and call their setup() function
 async def __load_cogs(bot: discord.ext.commands.Bot, config) -> None:
     for cog in config['loadedCogs']:
         await bot.load_extension(cog)
 
-# Internal method for syncing commands to a guild (or globally)
+# Internal function for syncing commands to a guild (or globally)
 async def sync_commands(bot: discord.ext.commands.Bot, config: dict) -> None:
     await bot.tree.sync(guild=discord.Object(id=config['slashGuildID']) if config['slashGuildID'] is not None else None)
 
-# Internal method for setting status
-# TODO: This function was written a LONG time ago. Some variable names are... very indescriptive.
-async def __ready_status(client: Union[discord.Client, discord.ext.commands.Bot], activityData: dict) -> None:
-    def type():
+# Internal function for setting status
+async def __setPresence(client: Union[discord.Client, discord.ext.commands.Bot], activityData: dict) -> None:
+    def activityType():
         activityName = activityData['name']
         if activityData['type'].startswith('l'):
             return discord.Activity(type=discord.ActivityType.listening, name=activityName)
@@ -80,20 +94,19 @@ async def __ready_status(client: Union[discord.Client, discord.ext.commands.Bot]
             return discord.Streaming(name=activityName, url=activityData['streamURL'])
         elif activityData['type'].startswith('p'):
             return discord.Game(name=activityName)
-        else:
-            return None
-    def stat():
+        return None
+    def statusMode():
         status = activityData['status']
-        if status == 'dnd':
+        if status in ('dnd',):
             return discord.Status.dnd
-        elif status == 'invisible':
+        elif status in ('invisible', 'invis', 'hidden'):
             return discord.Status.invisible
-        elif status == 'idle':
+        elif status in ('idle', 'afk', 'away'):
             return discord.Status.idle
         else:
             return discord.Status.online
     if activityData['type'] != 'n':
-        await client.change_presence(status=stat(), activity=type())
+        await client.change_presence(status=statusMode(), activity=activityType())
 
 # Returns current uptime
 def get_uptime() -> str:
@@ -125,8 +138,14 @@ def set_config(json: dict) -> dict:
 
 class buttons:
     class Trash(discord.ui.Button):
-        def __init__(self, row=1, *, style=discord.ButtonStyle.danger, emoji="🗑️"):
+        def __init__(self, row = 1, *, style=discord.ButtonStyle.danger, emoji="🗑️"):
             super().__init__(custom_id="presets:trash", row=row, style=style, emoji=emoji)
+        
+        async def callback(self, interaction: discord.Interaction): pass
+    
+    class Refresh(discord.ui.Button):
+        def __init__(self, callbackName, row = 1, *, style=discord.ButtonStyle.secondary, emoji="🔃"):
+            super().__init__(custom_id=f"bot::refresh-{callbackName}", row=row, style=style, emoji=emoji)
         
         async def callback(self, interaction: discord.Interaction): pass
 

@@ -1,16 +1,5 @@
 {
     "ownerIDs": [406629388059410434, 394153072303276033, 460943477992062976, 345317154914304012],
-    "staffMembers": [
-        460943477992062976,
-        406629388059410434,
-        345317154914304012,
-        307694113548140546
-    ],
-    "staffRoles": [
-        788911513129058304,
-        788912937481273344,
-        792875711676940321
-    ],
     "slashGuildID": 788886124159828009,
     "doAutomaticSync": false,
     "loadedCogs": [
@@ -22,25 +11,38 @@
         "cogs.tictactoe"
     ],
     "snowflakes": {
+        "dataChannel": 1007107958339010711,
         "verifyRole": 788914323485491232,
         "lockedRole": 1001985537856524409,
         "appHandlingChannel": 831579949415530527,
         "guildMemberRole": 789590790669205536,
         "pendingRole": 831614870256353330,
         "suggestionsChannel": 866363490675326996,
-        "ownerID": 406629388059410434
+        "ownerID": 406629388059410434,
+        "bridgeAccessRole": 1006361957273718824
     },
-    "rtInit": {},
+    "rtInit": {
+        "stored": {}
+    },
     "prefix": "=",
     "activity": {
-        "type": "p",
+        "type": "playing",
         "name": "skyblock",
-        "status": "online",
-        "streamURL": ""
+        "status": null,
+        "streamURL": null
     },
-    "debug": {
-        "enabled": false
-    },
+    "debug": {"enabled": false},
+    "staffMembers": [
+        460943477992062976,
+        406629388059410434,
+        345317154914304012,
+        307694113548140546
+    ],
+    "staffRoles": [
+        788911513129058304,
+        788912937481273344,
+        792875711676940321
+    ],
     "cogChecks": {
         "staff": {
             "roles": [
@@ -54,7 +56,8 @@
                 345317154914304012,
                 307694113548140546
             ],
-            "flags": []
+            "flags": [],
+            "inherit": null
         },
         "trusted": {
             "roles": [
@@ -70,7 +73,8 @@
                 345317154914304012,
                 307694113548140546
             ],
-            "flags": []
+            "flags": [],
+            "inherit": null
         }
     }
 }

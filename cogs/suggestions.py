@@ -159,7 +159,6 @@ class Suggestions(commands.Cog):
         await interaction.response.send_modal(modal)
     
     @app_commands.command(description="Report a bug")
-    @app_commands.guilds(discord.Object(id=utils.guildID))
     async def bugreport(self, interaction: discord.Interaction):
         await interaction.response.send_modal(self.modals.BugReport())
 

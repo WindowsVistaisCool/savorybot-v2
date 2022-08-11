@@ -18,6 +18,14 @@ class Listeners(commands.Cog):
         except: return
         if interaction.data["custom_id"] == "presets:trash":
             await interaction.message.delete()
+        elif interaction.data["custom_id"].startswith('bot::refresh'):
+            callbackID = interaction.data["custom_id"].split('-')[1]
+            if callbackID == 'fragappmods':
+                userID = int(interaction.message.embeds[0].footer.text)
+                view = Applications.views.FragAppMods()
+                view.setID(userID)
+                await interaction.message.edit(view=view)
+            await interaction.response.defer()
         elif interaction.data["custom_id"] == "bot::verify":
             await interaction.response.defer()
             verifyRole = interaction.guild.get_role(config["snowflakes"]["verifyRole"])
@@ -28,6 +36,8 @@ class Listeners(commands.Cog):
             modal = Applications.modals.Apply()
             modal.supply_cog(Applications)
             await interaction.response.send_modal(modal)
+        elif interaction.data["custom_id"].startswith("bot::fragapp"):
+            await Applications.event_callback(interaction)
         elif interaction.data["custom_id"].startswith("bot::sgst"):
             await Suggestions.event_callback(interaction)
         elif interaction.data["custom_id"].startswith("bot::poll"):

@@ -15,20 +15,34 @@ from datetime import datetime
 class Owner(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.lasteval = "-s ```py\nawait ctx.send('Nothing to eval!')```"
     
     @commands.command()
     @commands.is_owner()
     async def sync(self, ctx):
         await utils.sync_commands(self.bot, utils.config)
 
+    @commands.command(aliases=['snow'])
+    @commands.is_owner()
+    async def setSnowflake(self, ctx, snowflakeID, snowflakeValue: int):
+        await ctx.message.delete()
+        conf = utils.config
+        conf[snowflakeID] = snowflakeValue
+        utils.set_config(conf)
+
+    @commands.command()
+    @commands.is_owner()
+    async def reval(self, ctx):
+        code = self.lasteval
+        if ctx.message.reference: code = await ctx.channel.fetch_message(ctx.message.reference.message_id).content[6:]
+        await self.eval.callback(self, ctx, code=code)
+
     @commands.command()
     @commands.is_owner()
     async def r(self, ctx, cog: str = "owner"):
         await ctx.message.delete()
-        try:
-            await self.bot.reload_extension("cogs." + cog)
-        except:
-            await ctx.send("Failure reloading cog `" + cog + "`", delete_after=5)
+        try: await self.bot.reload_extension("cogs." + cog)
+        except: await ctx.send("Failure reloading cog `" + cog + "`", delete_after=5)
 
     @commands.command()
     @commands.is_owner()
@@ -46,6 +60,7 @@ class Owner(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def eval(self, ctx, *, code: str):
+        self.lasteval = code
         out, err = io.StringIO(), io.StringIO()
         silence = False
         if code.startswith('-s'):
