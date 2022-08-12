@@ -2,3 +2,4 @@ requests
 aioconsole
 asyncio
 python-dotenv
+git+git://github.com/Rapptz/discord.py.git
